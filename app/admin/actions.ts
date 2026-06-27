@@ -7,6 +7,7 @@ import {
   urgencySchema,
   needKindSchema,
   needItemSchema,
+  requestStatusSchema,
 } from '@/lib/validations/request'
 import type { UrgencyLevel, NeedKind, RequestStatus } from '@/types/database'
 
@@ -72,6 +73,7 @@ export async function rejectRequest(requestId: string) {
 export async function updateRequestStatus(requestId: string, status: RequestStatus) {
   try {
     if (!uuidSchema.safeParse(requestId).success) return { error: 'ID de petición inválido' }
+    if (!requestStatusSchema.safeParse(status).success) return { error: 'Estado de petición inválido' }
     const userId = await getAdminUserId()
     if (!userId) return { error: 'No autorizado' }
 

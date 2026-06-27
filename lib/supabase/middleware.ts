@@ -27,17 +27,27 @@ export async function updateSession(request: NextRequest) {
     }
   )
 
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
-
   const isAdminRoute =
     request.nextUrl.pathname.startsWith('/admin') &&
     !request.nextUrl.pathname.startsWith('/admin/login')
 
-  if (isAdminRoute && !user) {
-    const loginUrl = request.nextUrl.clone()
-    loginUrl.pathname = '/admin/login'
+  if (!isAdminRoute) return supabaseResponse
+
+  const { data: { user } } = await supabase.auth.getUser()
+
+  const loginUrl = request.nextUrl.clone()
+  loginUrl.pathname = '/admin/login'
+
+  if (!user) return NextResponse.redirect(loginUrl)
+
+  // Verify coordinator role — authentication alone is not enough
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role')
+    .eq('id', user.id)
+    .single()
+
+  if (!profile || profile.role !== 'coordinator') {
     return NextResponse.redirect(loginUrl)
   }
 

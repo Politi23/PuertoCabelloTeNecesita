@@ -42,3 +42,8 @@ export const needItemSchema = z
   .min(2, 'El item debe tener al menos 2 caracteres')
   .max(200, 'Máximo 200 caracteres')
   .refine(noHtml, 'El texto no puede contener etiquetas HTML')
+
+export const requestStatusSchema = z.enum(
+  ['pendiente', 'aprobada', 'rechazada', 'en_proceso', 'resuelta'] as const,
+  { invalid_type_error: 'Estado de petición inválido' }
+)
