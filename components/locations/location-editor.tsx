@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import { toast } from 'sonner'
-import { Plus, Trash2, ShieldCheck, ShieldOff } from 'lucide-react'
+import { Plus, Trash2, ShieldCheck, ShieldOff, AlertTriangle, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import {
@@ -30,15 +30,17 @@ export function LocationEditor({ locations }: { locations: LocationWithNeeds[] }
   const [highPriority, setHighPriority] = useState(false)
   const [saving, setSaving] = useState(false)
   const [itemError, setItemError] = useState('')
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null)
 
   // Verification state (local, synced from selected location)
   const [verifiedSource, setVerifiedSource] = useState('')
 
   const location = locations.find((l) => l.id === selectedId)
 
-  // Sync verifiedSource when switching locations
+  // Sync verifiedSource and reset confirmDelete when switching locations
   useEffect(() => {
     setVerifiedSource(location?.verified_source ?? '')
+    setConfirmDeleteId(null)
   }, [selectedId, location?.verified_source])
 
   const handleUrgencyChange = async (urgency: UrgencyLevel) => {
@@ -102,6 +104,11 @@ export function LocationEditor({ locations }: { locations: LocationWithNeeds[] }
 
   const handleDeleteNeed = async (needId: string) => {
     if (!location) return
+    if (confirmDeleteId !== needId) {
+      setConfirmDeleteId(needId)
+      return
+    }
+    setConfirmDeleteId(null)
     const result = await deleteLocationNeed(needId, location.id)
     if (result.error) toast.error(result.error)
     else toast.success('Necesidad eliminada.')
@@ -227,13 +234,33 @@ export function LocationEditor({ locations }: { locations: LocationWithNeeds[] }
                         <span className="ml-1.5 text-xs text-crit font-medium">(prioridad)</span>
                       )}
                     </span>
-                    <button
-                      onClick={() => handleDeleteNeed(n.id)}
-                      className="text-muted hover:text-crit transition-colors p-1 rounded focus-visible:ring-2 focus-visible:ring-gold shrink-0"
-                      aria-label={`Eliminar "${n.item}"`}
-                    >
-                      <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
-                    </button>
+                    {confirmDeleteId === n.id ? (
+                      <div className="flex items-center gap-1 shrink-0">
+                        <button
+                          onClick={() => handleDeleteNeed(n.id)}
+                          className="flex items-center gap-1 text-xs text-crit border border-crit/30 bg-crit/10 hover:bg-crit/20 rounded px-2 py-0.5 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                          aria-label={`Confirmar eliminar "${n.item}"`}
+                        >
+                          <AlertTriangle className="h-3 w-3" aria-hidden="true" />
+                          Eliminar
+                        </button>
+                        <button
+                          onClick={() => setConfirmDeleteId(null)}
+                          className="text-muted hover:text-ink p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+                          aria-label="Cancelar"
+                        >
+                          <X className="h-3.5 w-3.5" aria-hidden="true" />
+                        </button>
+                      </div>
+                    ) : (
+                      <button
+                        onClick={() => handleDeleteNeed(n.id)}
+                        className="text-muted hover:text-crit transition-colors p-1 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold shrink-0"
+                        aria-label={`Eliminar "${n.item}"`}
+                      >
+                        <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>

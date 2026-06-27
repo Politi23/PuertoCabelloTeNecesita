@@ -30,7 +30,7 @@ insert into locations (name, type, plus_code, zone, urgency, is_verified, verifi
 ),
 (
   'Sun And Sea',
-  'Residencia geriátrica',
+  'Edificio de apartamentos',
   'FXJ6+3W6',
   'Puerto Cabello',
   'media',
