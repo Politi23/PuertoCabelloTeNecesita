@@ -3,6 +3,7 @@ import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import { Providers } from '@/components/layout/providers'
 import { Toaster } from 'sonner'
+import { Analytics } from '@vercel/analytics/next'
 
 const archivo = Archivo({
   subsets: ['latin'],
@@ -43,6 +44,7 @@ export default function RootLayout({
       <body>
         <Providers>
           {children}
+          <Analytics />
           <Toaster
             theme="dark"
             toastOptions={{
