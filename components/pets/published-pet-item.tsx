@@ -47,11 +47,11 @@ export function PublishedPetItem({ pet }: { pet: LostPet }) {
 
         <div className="space-y-1.5 text-xs text-muted">
           <div className="flex items-center gap-1.5">
-            <MapPin className="h-3 w-3 shrink-0" />
+            <MapPin className="h-3 w-3 shrink-0" aria-hidden="true" />
             {pet.zone}
           </div>
           <div className="flex items-center gap-1.5 bg-bg border border-line/60 rounded px-2 py-1.5">
-            <Phone className="h-3 w-3 shrink-0 text-gold" />
+            <Phone className="h-3 w-3 shrink-0 text-gold" aria-hidden="true" />
             <span className="font-mono text-ink">{pet.contact}</span>
           </div>
         </div>

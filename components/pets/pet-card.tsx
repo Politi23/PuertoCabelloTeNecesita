@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { Phone, MapPin, X, ZoomIn } from 'lucide-react'
 import { formatRelativeTime } from '@/lib/utils'
 import { PET_SPECIES_LABELS } from '@/types/database'
@@ -8,6 +8,19 @@ import type { LostPet } from '@/types/database'
 
 export function PetCard({ pet }: { pet: LostPet }) {
   const [open, setOpen] = useState(false)
+
+  const close = useCallback(() => setOpen(false), [])
+
+  useEffect(() => {
+    if (!open) return
+    document.body.style.overflow = 'hidden'
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [open, close])
 
   return (
     <>
@@ -60,21 +73,26 @@ export function PetCard({ pet }: { pet: LostPet }) {
           role="dialog"
           aria-modal="true"
           aria-label={`Foto de ${pet.name}`}
-          className="fixed inset-0 z-50 bg-bg/90 backdrop-blur-sm flex items-center justify-center p-4"
-          onClick={() => setOpen(false)}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-in fade-in duration-150"
+          style={{ background: 'color-mix(in srgb, var(--bg) 92%, transparent)' }}
+          onClick={close}
         >
+          <div
+            className="absolute inset-0 -z-10 backdrop-blur-sm"
+            aria-hidden="true"
+          />
           <button
             type="button"
-            onClick={() => setOpen(false)}
-            className="absolute top-4 right-4 bg-surface border border-line text-ink rounded-full p-2 hover:bg-line transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
-            aria-label="Cerrar"
+            onClick={close}
+            className="absolute top-4 right-4 bg-surface border border-line text-ink rounded-full p-2 hover:bg-line transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold"
+            aria-label="Cerrar (Esc)"
           >
             <X className="h-5 w-5" />
           </button>
           <img
             src={pet.photo_url}
             alt={`${PET_SPECIES_LABELS[pet.species]} llamado ${pet.name}`}
-            className="max-w-full max-h-[85vh] rounded-xl object-contain shadow-2xl"
+            className="max-w-full max-h-[85vh] rounded-xl object-contain shadow-2xl animate-in zoom-in-95 duration-150"
             onClick={(e) => e.stopPropagation()}
           />
         </div>

@@ -9,7 +9,7 @@ export function Header() {
           href="/"
           className="flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-gold rounded min-w-0"
         >
-          <Image src="/android-chrome-192x192.png" alt="" width={20} height={20} className="shrink-0 3xl:w-6 3xl:h-6" aria-hidden="true" />
+          <Image src="/android-chrome-192x192.png" alt="" width={20} height={20} className="shrink-0 3xl:w-6 3xl:h-6" aria-hidden="true" priority />
           <span className="font-archivo font-semibold text-ink text-sm 3xl:text-base tracking-tight truncate">
             Puerto Cabello Te Necesita
           </span>
