@@ -15,7 +15,17 @@ async function getAdminUserId(): Promise<string | null> {
   try {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
-    return user?.id ?? null
+    if (!user) return null
+
+    // Defensa en profundidad: además de RLS, exigimos rol coordinador real.
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .single()
+
+    if (!profile || profile.role !== 'coordinator') return null
+    return user.id
   } catch {
     return null
   }
