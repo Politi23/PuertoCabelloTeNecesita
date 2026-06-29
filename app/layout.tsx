@@ -36,7 +36,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Puerto Cabello Te Necesita',
   description:
-    'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello, Carabobo, Venezuela. Ve qué necesitan los lugares ahora mismo y envía tu petición.',
+    'Tras el terremoto en Puerto Cabello: mira qué necesita cada lugar ahora mismo, pide ayuda o repórtate. Toda la información se revisa para que la ayuda llegue donde de verdad hace falta.',
   metadataBase: new URL(siteUrl),
   icons: {
     icon: [
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Puerto Cabello Te Necesita',
     description:
-      'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello. Ve qué necesitan los lugares ahora mismo.',
+      'Mira qué necesita cada lugar tras el terremoto, pide ayuda o reporta una mascota perdida. Información revisada para que la ayuda llegue donde hace falta.',
     url: siteUrl,
     siteName: 'Puerto Cabello Te Necesita',
     locale: 'es_VE',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Puerto Cabello Te Necesita',
     description:
-      'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello. Ve qué necesitan los lugares ahora mismo.',
+      'Mira qué necesita cada lugar tras el terremoto, pide ayuda o reporta una mascota perdida. Información revisada para que la ayuda llegue donde hace falta.',
   },
   robots: {
     index: true,
