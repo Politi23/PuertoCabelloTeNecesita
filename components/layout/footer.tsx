@@ -5,7 +5,7 @@ import { Instagram } from 'lucide-react'
 export function Footer() {
   return (
     <footer className="border-t border-line mt-auto">
-      <div className="max-w-container xl:max-w-container-xl 2xl:max-w-container-tv mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
+      <div className="max-w-container xl:max-w-container-xl 2xl:max-w-container-tv mx-auto px-4 sm:px-6 lg:px-8 min-h-14 py-3 flex items-center justify-between gap-x-4 gap-y-2 flex-wrap">
         <Link
           href="/"
           className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded"
@@ -30,7 +30,7 @@ export function Footer() {
           rel="noopener noreferrer"
           className="flex items-center gap-1.5 text-xs text-muted hover:text-gold transition-colors duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold rounded group"
         >
-          <span className="text-muted/60 group-hover:text-muted transition-colors duration-150">
+          <span className="text-muted/60 group-hover:text-muted transition-colors duration-150 hidden xs:inline sm:inline">
             Desarrollado por
           </span>
           <Instagram className="h-3 w-3 shrink-0 text-muted/60 group-hover:text-gold transition-colors duration-150" aria-hidden="true" />
