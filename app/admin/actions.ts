@@ -243,6 +243,23 @@ export async function deleteLocationNeed(needId: string, locationId: string) {
 
 // ─── Lost Pets ───────────────────────────────────────────────────────────────
 
+// Borra la foto del bucket pet-photos a partir de su URL pública.
+// Best-effort: si falla, no bloquea la operación principal.
+async function deletePetPhoto(photoUrl: string | null | undefined) {
+  if (!photoUrl) return
+  try {
+    const marker = '/pet-photos/'
+    const idx = photoUrl.indexOf(marker)
+    if (idx === -1) return
+    const path = decodeURIComponent(photoUrl.slice(idx + marker.length))
+    if (!path) return
+    const supabase = createClient()
+    await supabase.storage.from('pet-photos').remove([path])
+  } catch (err) {
+    console.error('deletePetPhoto error:', err)
+  }
+}
+
 export async function approveLostPet(petId: string) {
   try {
     if (!uuidSchema.safeParse(petId).success) return { error: 'ID de mascota inválido' }
@@ -271,10 +288,18 @@ export async function removeLostPet(petId: string) {
     if (!userId) return { error: 'No autorizado' }
 
     const supabase = createClient()
-    const { error } = await supabase.from('lost_pets').delete().eq('id', petId)
+    const { data: pet } = await supabase
+      .from('lost_pets')
+      .select('photo_url')
+      .eq('id', petId)
+      .single()
 
+    const { error } = await supabase.from('lost_pets').delete().eq('id', petId)
     if (error) return { error: error.message }
+
+    await deletePetPhoto(pet?.photo_url)
     revalidatePath('/admin')
+    revalidatePath('/')
     return { success: true }
   } catch (err) {
     console.error('removeLostPet error:', err)
@@ -289,12 +314,18 @@ export async function rejectLostPet(petId: string) {
     if (!userId) return { error: 'No autorizado' }
 
     const supabase = createClient()
-    const { error } = await supabase
+    const { data: pet } = await supabase
       .from('lost_pets')
-      .update({ is_public: false, approved_by: userId, updated_at: new Date().toISOString() })
+      .select('photo_url')
       .eq('id', petId)
+      .single()
 
+    // Rechazar elimina el reporte: no hay estado "rechazada" en lost_pets,
+    // así que mantenerlo lo dejaría atrapado en la bandeja de pendientes.
+    const { error } = await supabase.from('lost_pets').delete().eq('id', petId)
     if (error) return { error: error.message }
+
+    await deletePetPhoto(pet?.photo_url)
     revalidatePath('/admin')
     return { success: true }
   } catch (err) {
