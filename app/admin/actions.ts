@@ -254,6 +254,24 @@ export async function approveLostPet(petId: string) {
   }
 }
 
+export async function removeLostPet(petId: string) {
+  try {
+    if (!uuidSchema.safeParse(petId).success) return { error: 'ID de mascota inválido' }
+    const userId = await getAdminUserId()
+    if (!userId) return { error: 'No autorizado' }
+
+    const supabase = createClient()
+    const { error } = await supabase.from('lost_pets').delete().eq('id', petId)
+
+    if (error) return { error: error.message }
+    revalidatePath('/admin')
+    return { success: true }
+  } catch (err) {
+    console.error('removeLostPet error:', err)
+    return { error: 'Error inesperado al quitar la mascota.' }
+  }
+}
+
 export async function rejectLostPet(petId: string) {
   try {
     if (!uuidSchema.safeParse(petId).success) return { error: 'ID de mascota inválido' }
