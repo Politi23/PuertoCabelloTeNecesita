@@ -31,6 +31,21 @@
     -webkit-font-smoothing: antialiased;
     font-size: 1rem;
     line-height: 1.6;
+    /* Contención de desborde horizontal robusta en iOS Safari */
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* Ninguna media puede exceder su contenedor */
+  img, video, canvas {
+    max-width: 100%;
+  }
+
+  /* Romper palabras largas (URLs, contactos) en vez de desbordar */
+  p, span, h1, h2, h3, li, a {
+    overflow-wrap: break-word;
   }
 
   /* TV: increase base font size slightly */

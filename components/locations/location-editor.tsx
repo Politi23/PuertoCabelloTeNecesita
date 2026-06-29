@@ -228,7 +228,7 @@ export function LocationEditor({ locations }: { locations: LocationWithNeeds[] }
               <ul className="divide-y divide-line/40">
                 {location.location_needs.map((n) => (
                   <li key={n.id} className="flex items-center justify-between gap-2 py-2 text-sm">
-                    <span className={n.kind === 'no_necesita' ? 'line-through text-muted' : 'text-ink'}>
+                    <span className={`min-w-0 ${n.kind === 'no_necesita' ? 'line-through text-muted' : 'text-ink'}`}>
                       {n.item}
                       {n.high_priority && (
                         <span className="ml-1.5 text-xs text-crit font-medium">(prioridad)</span>

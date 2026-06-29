@@ -45,7 +45,7 @@ export default async function HomePage() {
   return (
     <>
       <Header />
-      <main className="max-w-container xl:max-w-container-xl 2xl:max-w-container-tv mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 3xl:py-12 space-y-8 sm:space-y-10 3xl:space-y-14">
+      <main className="w-full min-w-0 max-w-container xl:max-w-container-xl 2xl:max-w-container-tv mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 3xl:py-12 space-y-8 sm:space-y-10 3xl:space-y-14">
 
         {/* Franja de situación */}
         <section
@@ -64,19 +64,19 @@ export default async function HomePage() {
             )}
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 sm:gap-6 3xl:gap-8">
-            <div>
+            <div className="min-w-0">
               <p className="font-mono text-3xl sm:text-4xl 3xl:text-5xl font-medium text-gold leading-none">
                 {locations.length}
               </p>
               <p className="text-xs sm:text-sm text-muted mt-1.5">Lugares monitoreados</p>
             </div>
-            <div>
+            <div className="min-w-0">
               <p className="font-mono text-3xl sm:text-4xl 3xl:text-5xl font-medium text-gold leading-none">
                 {publicRequests.length}
               </p>
               <p className="text-xs sm:text-sm text-muted mt-1.5">Peticiones activas</p>
             </div>
-            <div className="col-span-2 sm:col-span-1 pt-3 sm:pt-0 border-t border-line/50 sm:border-t-0 sm:border-l sm:border-line/50 sm:pl-6">
+            <div className="min-w-0 col-span-2 sm:col-span-1 pt-3 sm:pt-0 border-t border-line/50 sm:border-t-0 sm:border-l sm:border-line/50 sm:pl-6">
               <p className="font-mono text-base sm:text-lg 3xl:text-xl font-medium text-ink leading-none">
                 {lastUpdated ? formatRelativeTime(lastUpdated) : '—'}
               </p>

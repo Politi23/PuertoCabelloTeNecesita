@@ -11,7 +11,7 @@ export default function EnviarPage() {
   return (
     <>
       <Header />
-      <main className="max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="w-full min-w-0 max-w-container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         <Link
           href="/"
           className="inline-flex items-center gap-1.5 text-sm text-muted hover:text-ink transition-colors duration-150 mb-6 focus-visible:ring-2 focus-visible:ring-gold rounded"
