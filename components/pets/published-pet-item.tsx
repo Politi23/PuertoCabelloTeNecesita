@@ -6,6 +6,7 @@ import { Phone, MapPin, CheckCircle, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { formatRelativeTime } from '@/lib/utils'
 import { removeLostPet } from '@/app/admin/actions'
+import { PetPhoto } from './pet-photo'
 import { PET_SPECIES_LABELS } from '@/types/database'
 import type { LostPet } from '@/types/database'
 
@@ -24,14 +25,7 @@ export function PublishedPetItem({ pet }: { pet: LostPet }) {
 
   return (
     <div className="bg-surface border border-line rounded-lg overflow-hidden flex flex-col">
-      <div className="aspect-video w-full overflow-hidden bg-bg">
-        <img
-          src={pet.photo_url}
-          alt={pet.name}
-          className="w-full h-full object-cover"
-          loading="lazy"
-        />
-      </div>
+      <PetPhoto src={pet.photo_url} alt={pet.name} />
       <div className="p-4 space-y-3 flex flex-col flex-1">
         <div className="flex items-start justify-between gap-2">
           <div>
