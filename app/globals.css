@@ -21,7 +21,7 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    overflow-x: clip;
+    overflow-x: hidden;
   }
 
   body {
@@ -31,7 +31,6 @@
     -webkit-font-smoothing: antialiased;
     font-size: 1rem;
     line-height: 1.6;
-    overflow-x: clip;
   }
 
   /* TV: increase base font size slightly */

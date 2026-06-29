@@ -41,8 +41,9 @@ export function RequestsSection({
       </h2>
 
       {/* Filtros: scroll horizontal en móvil, wrap en tablet+ */}
+      <div className="overflow-x-auto scrollbar-none -mx-4 sm:mx-0 mb-5">
       <div
-        className="flex gap-2 overflow-x-auto scrollbar-none pb-1 -mx-4 px-4 sm:mx-0 sm:px-0 sm:flex-wrap mb-5"
+        className="flex gap-2 pb-1 px-4 sm:px-0 sm:flex-wrap w-max sm:w-auto"
         role="group"
         aria-label="Filtrar por categoría"
       >
@@ -71,6 +72,7 @@ export function RequestsSection({
             {cat}
           </button>
         ))}
+      </div>
       </div>
 
       {filtered.length === 0 ? (
