@@ -25,10 +25,32 @@ const ibmPlexMono = IBM_Plex_Mono({
   display: 'swap',
 })
 
+const siteUrl = 'https://puertocabellotenecesita.vercel.app'
+
 export const metadata: Metadata = {
   title: 'Puerto Cabello Te Necesita',
   description:
-    'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello, Carabobo, Venezuela.',
+    'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello, Carabobo, Venezuela. Ve qué necesitan los lugares ahora mismo y envía tu petición.',
+  metadataBase: new URL(siteUrl),
+  openGraph: {
+    title: 'Puerto Cabello Te Necesita',
+    description:
+      'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello. Ve qué necesitan los lugares ahora mismo.',
+    url: siteUrl,
+    siteName: 'Puerto Cabello Te Necesita',
+    locale: 'es_VE',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Puerto Cabello Te Necesita',
+    description:
+      'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello. Ve qué necesitan los lugares ahora mismo.',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 }
 
 export default function RootLayout({

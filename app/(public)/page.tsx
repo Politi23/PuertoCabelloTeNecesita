@@ -8,7 +8,7 @@ import type { LocationWithNeeds, PublicRequest } from '@/types/database'
 import Link from 'next/link'
 import { ArrowRight, Activity } from 'lucide-react'
 
-export const revalidate = 0
+export const revalidate = 30
 
 export default async function HomePage() {
   const supabase = createClient()
