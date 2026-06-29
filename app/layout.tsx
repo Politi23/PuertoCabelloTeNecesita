@@ -32,6 +32,13 @@ export const metadata: Metadata = {
   description:
     'Coordinación verificada de ayuda tras el terremoto en Puerto Cabello, Carabobo, Venezuela. Ve qué necesitan los lugares ahora mismo y envía tu petición.',
   metadataBase: new URL(siteUrl),
+  icons: {
+    icon: [
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
+    apple: '/apple-touch-icon.png',
+  },
   openGraph: {
     title: 'Puerto Cabello Te Necesita',
     description:
