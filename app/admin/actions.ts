@@ -231,6 +231,50 @@ export async function deleteLocationNeed(needId: string, locationId: string) {
   }
 }
 
+// ─── Lost Pets ───────────────────────────────────────────────────────────────
+
+export async function approveLostPet(petId: string) {
+  try {
+    if (!uuidSchema.safeParse(petId).success) return { error: 'ID de mascota inválido' }
+    const userId = await getAdminUserId()
+    if (!userId) return { error: 'No autorizado' }
+
+    const supabase = createClient()
+    const { error } = await supabase
+      .from('lost_pets')
+      .update({ is_public: true, approved_by: userId, updated_at: new Date().toISOString() })
+      .eq('id', petId)
+
+    if (error) return { error: error.message }
+    revalidatePath('/admin')
+    return { success: true }
+  } catch (err) {
+    console.error('approveLostPet error:', err)
+    return { error: 'Error inesperado al publicar la mascota.' }
+  }
+}
+
+export async function rejectLostPet(petId: string) {
+  try {
+    if (!uuidSchema.safeParse(petId).success) return { error: 'ID de mascota inválido' }
+    const userId = await getAdminUserId()
+    if (!userId) return { error: 'No autorizado' }
+
+    const supabase = createClient()
+    const { error } = await supabase
+      .from('lost_pets')
+      .update({ is_public: false, approved_by: userId, updated_at: new Date().toISOString() })
+      .eq('id', petId)
+
+    if (error) return { error: error.message }
+    revalidatePath('/admin')
+    return { success: true }
+  } catch (err) {
+    console.error('rejectLostPet error:', err)
+    return { error: 'Error inesperado al rechazar el reporte.' }
+  }
+}
+
 export async function signOut() {
   try {
     const supabase = createClient()

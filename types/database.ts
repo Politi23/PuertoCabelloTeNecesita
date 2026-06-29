@@ -61,6 +61,32 @@ export interface PublicRequest {
   updated_at: string
 }
 
+export type PetSpecies = 'perro' | 'gato' | 'ave' | 'reptil' | 'otro'
+export type PetStatus = 'perdido' | 'encontrado'
+
+export interface LostPet {
+  id: string
+  name: string
+  species: PetSpecies
+  description: string
+  zone: string
+  contact: string
+  photo_url: string
+  status: PetStatus
+  is_public: boolean
+  approved_by: string | null
+  created_at: string
+  updated_at: string
+}
+
+export const PET_SPECIES_LABELS: Record<PetSpecies, string> = {
+  perro: 'Perro',
+  gato: 'Gato',
+  ave: 'Ave',
+  reptil: 'Reptil',
+  otro: 'Otro',
+}
+
 export const REQUEST_CATEGORIES = [
   'Escombros',
   'Ropa',

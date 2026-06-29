@@ -3,17 +3,19 @@ import { Header } from '@/components/layout/header'
 import { LocationsRealtime } from '@/components/locations/locations-realtime'
 import { RequestsSection } from '@/components/requests/requests-section'
 import { Separator } from '@/components/ui/separator'
+import { PetCard } from '@/components/pets/pet-card'
+import { ReportPetModal } from '@/components/pets/report-pet-modal'
 import { formatRelativeTime } from '@/lib/utils'
-import type { LocationWithNeeds, PublicRequest } from '@/types/database'
+import type { LocationWithNeeds, PublicRequest, LostPet } from '@/types/database'
 import Link from 'next/link'
-import { ArrowRight, Activity } from 'lucide-react'
+import { ArrowRight, Activity, PawPrint } from 'lucide-react'
 
 export const revalidate = 30
 
 export default async function HomePage() {
   const supabase = createClient()
 
-  const [{ data: locationsData }, { data: requestsData }] = await Promise.all([
+  const [{ data: locationsData }, { data: requestsData }, { data: petsData }] = await Promise.all([
     supabase
       .from('locations')
       .select('*, location_needs(*)')
@@ -22,10 +24,16 @@ export default async function HomePage() {
       .from('public_requests')
       .select('*')
       .order('created_at', { ascending: false }),
+    supabase
+      .from('lost_pets')
+      .select('*')
+      .eq('is_public', true)
+      .order('created_at', { ascending: false }),
   ])
 
   const locations = (locationsData ?? []) as LocationWithNeeds[]
   const publicRequests = (requestsData ?? []) as PublicRequest[]
+  const lostPets = (petsData ?? []) as LostPet[]
 
   const lastUpdated = locations.reduce<string | null>((latest, loc) => {
     if (!latest) return loc.updated_at
@@ -89,6 +97,39 @@ export default async function HomePage() {
 
         {/* Peticiones */}
         <RequestsSection initialRequests={publicRequests} />
+
+        <Separator />
+
+        {/* Mascotas perdidas */}
+        <section>
+          <div className="flex items-center justify-between gap-4 mb-4 sm:mb-5 flex-wrap">
+            <div className="flex items-center gap-2">
+              <PawPrint className="h-5 w-5 text-muted" aria-hidden="true" />
+              <h2 className="font-archivo text-xl sm:text-2xl font-semibold text-ink">
+                Mascotas perdidas
+              </h2>
+            </div>
+            <ReportPetModal />
+          </div>
+
+          {lostPets.length === 0 ? (
+            <div className="flex flex-col items-center justify-center py-14 text-center border border-dashed border-line rounded-xl">
+              <PawPrint className="h-8 w-8 text-muted/30 mb-3" aria-hidden="true" />
+              <p className="text-muted font-medium">Sin mascotas reportadas</p>
+              <p className="text-sm text-muted/60 mt-1">
+                Si encontraste o perdiste una mascota, repórtala aquí.
+              </p>
+            </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {lostPets.map((pet) => (
+                <PetCard key={pet.id} pet={pet} />
+              ))}
+            </div>
+          )}
+        </section>
+
+        <Separator />
 
         {/* CTA */}
         <div className="text-center py-8 sm:py-10 border border-dashed border-line rounded-xl">
