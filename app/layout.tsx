@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Archivo, IBM_Plex_Sans, IBM_Plex_Mono } from 'next/font/google'
 import './globals.css'
 import { Providers } from '@/components/layout/providers'
@@ -26,6 +26,12 @@ const ibmPlexMono = IBM_Plex_Mono({
 })
 
 const siteUrl = 'https://puertocabellotenecesita.vercel.app'
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+}
 
 export const metadata: Metadata = {
   title: 'Puerto Cabello Te Necesita',
