@@ -7,7 +7,8 @@ import { PendingPetItem } from '@/components/pets/pending-pet-item'
 import { PublishedPetItem } from '@/components/pets/published-pet-item'
 import { Separator } from '@/components/ui/separator'
 import { LogoutButton } from './logout-button'
-import { Anchor, InboxIcon, MapPin, ClipboardList, PawPrint } from 'lucide-react'
+import { InboxIcon, MapPin, ClipboardList, PawPrint } from 'lucide-react'
+import Image from 'next/image'
 import type { Request, LocationWithNeeds, LostPet } from '@/types/database'
 
 export const revalidate = 0
@@ -60,7 +61,7 @@ export default async function AdminPage() {
       <header className="border-b border-line bg-surface/90 backdrop-blur-sm sticky top-0 z-20">
         <div className="max-w-container xl:max-w-container-xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between gap-4">
           <div className="flex items-center gap-2 min-w-0">
-            <Anchor className="h-5 w-5 text-gold shrink-0" aria-hidden="true" />
+            <Image src="/android-chrome-192x192.png" alt="" width={20} height={20} className="shrink-0" aria-hidden="true" />
             <span className="font-archivo font-semibold text-ink text-sm truncate">
               Panel coordinador
             </span>

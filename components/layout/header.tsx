@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Anchor } from 'lucide-react'
+import Image from 'next/image'
 
 export function Header() {
   return (
@@ -9,7 +9,7 @@ export function Header() {
           href="/"
           className="flex items-center gap-2 focus-visible:ring-2 focus-visible:ring-gold rounded min-w-0"
         >
-          <Anchor className="h-5 w-5 3xl:h-6 3xl:w-6 text-gold shrink-0" aria-hidden="true" />
+          <Image src="/android-chrome-192x192.png" alt="" width={20} height={20} className="shrink-0 3xl:w-6 3xl:h-6" aria-hidden="true" />
           <span className="font-archivo font-semibold text-ink text-sm 3xl:text-base tracking-tight truncate">
             Puerto Cabello Te Necesita
           </span>

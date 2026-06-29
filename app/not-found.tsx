@@ -1,10 +1,10 @@
 import Link from 'next/link'
-import { Anchor } from 'lucide-react'
+import Image from 'next/image'
 
 export default function NotFound() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4 text-center">
-      <Anchor className="h-10 w-10 text-gold mx-auto mb-5" aria-hidden="true" />
+      <Image src="/android-chrome-192x192.png" alt="" width={40} height={40} className="mx-auto mb-5" aria-hidden="true" />
       <h1 className="font-archivo text-2xl sm:text-3xl font-semibold text-ink mb-2 text-balance">
         Página no encontrada
       </h1>
