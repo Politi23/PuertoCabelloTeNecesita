@@ -1,4 +1,4 @@
-export type UrgencyLevel = 'critico' | 'alta' | 'media' | 'abastecido'
+export type UrgencyLevel = 'critico' | 'alta' | 'media' | 'sin_info' | 'abastecido'
 export type RequestStatus = 'pendiente' | 'aprobada' | 'rechazada' | 'en_proceso' | 'resuelta'
 export type NeedKind = 'necesita' | 'no_necesita'
 

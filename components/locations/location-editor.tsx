@@ -21,7 +21,7 @@ import {
 } from '@/app/admin/actions'
 import type { LocationWithNeeds, UrgencyLevel, NeedKind } from '@/types/database'
 
-const URGENCY_OPTIONS: UrgencyLevel[] = ['critico', 'alta', 'media', 'abastecido']
+const URGENCY_OPTIONS: UrgencyLevel[] = ['critico', 'alta', 'media', 'sin_info', 'abastecido']
 
 export function LocationEditor({ locations }: { locations: LocationWithNeeds[] }) {
   const [selectedId, setSelectedId] = useState<string>(locations[0]?.id ?? '')

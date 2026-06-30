@@ -5,6 +5,7 @@ const URGENCY_LABELS: Record<UrgencyLevel, string> = {
   critico: 'Crítico',
   alta: 'Alta',
   media: 'Media',
+  sin_info: 'Sin información',
   abastecido: 'Abastecido',
 }
 

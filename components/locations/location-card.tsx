@@ -9,6 +9,7 @@ const urgencyStrip: Record<UrgencyLevel, string> = {
   critico: 'border-t-2 border-t-crit',
   alta: 'border-t-2 border-t-warn',
   media: 'border-t-2 border-t-warn/40',
+  sin_info: 'border-t-2 border-t-muted/40',
   abastecido: 'border-t-2 border-t-ok',
 }
 

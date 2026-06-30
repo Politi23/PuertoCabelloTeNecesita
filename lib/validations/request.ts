@@ -31,7 +31,7 @@ export type RequestFormData = z.infer<typeof requestSchema>
 
 // Validaciones para server actions del admin
 export const uuidSchema = z.string().uuid('ID inválido')
-export const urgencySchema = z.enum(['critico', 'alta', 'media', 'abastecido'] as const, {
+export const urgencySchema = z.enum(['critico', 'alta', 'media', 'sin_info', 'abastecido'] as const, {
   invalid_type_error: 'Nivel de urgencia inválido',
 })
 export const needKindSchema = z.enum(['necesita', 'no_necesita'] as const, {

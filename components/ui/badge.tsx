@@ -11,6 +11,7 @@ const badgeVariants = cva(
         critico: 'bg-crit/15 text-crit border border-crit/30',
         alta: 'bg-warn/15 text-warn border border-warn/30',
         media: 'bg-warn/10 text-warn/80 border border-warn/20',
+        sin_info: 'bg-muted/10 text-muted border border-muted/30',
         abastecido: 'bg-ok/15 text-ok border border-ok/30',
         pendiente: 'bg-surface border border-line text-muted',
         aprobada: 'bg-ok/15 text-ok border border-ok/30',
