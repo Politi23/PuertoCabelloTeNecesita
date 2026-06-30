@@ -5,6 +5,7 @@ import { RequestsSection } from '@/components/requests/requests-section'
 import { Separator } from '@/components/ui/separator'
 import { PetCard } from '@/components/pets/pet-card'
 import { ReportPetModal } from '@/components/pets/report-pet-modal'
+import { HowItWorks } from '@/components/layout/how-it-works'
 import { formatRelativeTime } from '@/lib/utils'
 import type { LocationWithNeeds, PublicRequest, LostPet } from '@/types/database'
 import Link from 'next/link'
@@ -84,6 +85,9 @@ export default async function HomePage() {
             </div>
           </div>
         </section>
+
+        {/* Cómo funciona */}
+        <HowItWorks />
 
         {/* Lugares */}
         <section>
